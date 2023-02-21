@@ -1,12 +1,24 @@
 import { Injectable } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { InfoPagina } from '../interfases/info-pagina.interfase';
 
 @Injectable({
   providedIn: 'root'
 })
 export class InfoPaginaService {    
+  info: InfoPagina = {};
+  cargada = false;
 
-  constructor( private htpp: HttpClient) { 
-    console.log('Servicio de infoPagina listo');
+
+  constructor( private http:HttpClient) {
+    // console.log('Servicio de infoPagina listo');
+  
+  this.http.get('assets/data/data-pagina.json')
+  .subscribe( (resp) =>{
+    this.cargada = true;
+    this.info = resp; // provar resp. I veurem les propietats JSON
+    console.log(resp);
+  });
   }
+
 }
